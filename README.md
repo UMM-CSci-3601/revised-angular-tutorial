@@ -33,7 +33,7 @@ We will also not provide a complete tutorial on E2E tests with protractor or uni
 
 ### Create the `top-bar` component
 
-We created an E2E spec that required (indirectly through the page objects) the existence of an `app-top-bar` component. We then satisfied that spec by generating the component:
+We created an E2E spec that required (indirectly through the page objects) the existence of an `app-top-bar` component. (ce1e3db) We then satisfied that spec by generating the component:
 
 - `ng generation component top-bar`
 
@@ -43,12 +43,12 @@ and replacing the entire contents of `app.component.html` with the HTML from the
 <app-top-bar></app-top-bar>
 ```
 
-at the top.
+at the top. (35ff8b2)
 
-We then added an E2E spec that required that there be a checkout button, and got that to pass by pasting in the button code from the tutorial.
+We then added an E2E spec that required that there be a checkout button, and got that to pass by pasting in the button code from the tutorial. (9421cb8)
 
 At this point the top bar is complete except for the fact that "My Store" should be a link to `'/'`. So we added an E2E spec that clicked on the title
-and checked that we were on the "home page". This is a slightly awkward test
+and checked that we were on the "home page". (9f3046d) This is a slightly awkward test
 at the moment because _everything_ is on the home page; we should probably
 extend it when there are additional pages to make sure the link brings us
 back home from those pages.
