@@ -33,7 +33,7 @@ We will also not provide a complete tutorial on E2E tests with protractor or uni
 
 ### Create the `top-bar` component
 
-We created an E2E spec that required (indirectly through the page objects) the existence of an `app-top-bar` component. We then satisfied that spec by generating the component:
+We created an E2E spec that required (indirectly through the page objects) the existence of an `app-top-bar` component. ([ce1e3db](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/ce1e3db4d1b4dccd20624b82f90589bcfab92990)) We then satisfied that spec by generating the component ([35ff8b2](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/35ff8b2dead2b71bf08719429d6e07d4c341d096)):
 
 - `ng generation component top-bar`
 
@@ -43,12 +43,12 @@ and replacing the entire contents of `app.component.html` with the HTML from the
 <app-top-bar></app-top-bar>
 ```
 
-at the top.
+at the top. ([594c6d1](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/594c6d1cf3b99311e6e4827a2f4f6076079c094b)) 
 
-We then added an E2E spec that required that there be a checkout button, and got that to pass by pasting in the button code from the tutorial.
+We then added an E2E spec that required that there be a checkout button, and got that to pass by pasting in the button code from the tutorial. ([9421cb8](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/9421cb8520c834454ea8b64776a10bfb89cdb7b0))
 
 At this point the top bar is complete except for the fact that "My Store" should be a link to `'/'`. So we added an E2E spec that clicked on the title
-and checked that we were on the "home page". This is a slightly awkward test
+and checked that we were on the "home page". ([9f3046d](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/9f3046dacf246745caff5da00a69e42163e2fd12)) This is a slightly awkward test
 at the moment because _everything_ is on the home page; we should probably
 extend it when there are additional pages to make sure the link brings us
 back home from those pages.
