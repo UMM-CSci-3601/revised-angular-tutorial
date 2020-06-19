@@ -9,12 +9,15 @@ export class AppPage {
     return element(by.css('app-top-bar'));
   }
 
+  get pageTitle() : ElementFinder {
+    return this.topBar.element(by.css('a h1'));
+  }
+
   get titleText(): Promise<string> {
-    let title = this.topBar.element(by.css('h1')).getText() as Promise<string>;
-    return title;
+    return this.pageTitle.getText() as Promise<string>;
   }
 
   get checkoutButton() : ElementFinder{
-    return element(by.className('button'))
+    return element(by.className('button'));
   }
 }
