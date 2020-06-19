@@ -13,6 +13,11 @@ describe('workspace-project App', () => {
     expect(page.titleText).toEqual('My Store');
   });
 
+  it('should display the checkout button', () => {
+    page.navigateTo();
+    expect(page.checkoutButton.isPresent()).toBeTruthy();
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

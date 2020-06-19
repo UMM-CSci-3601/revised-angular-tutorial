@@ -13,4 +13,8 @@ export class AppPage {
     let title = this.topBar.element(by.css('h1')).getText() as Promise<string>;
     return title;
   }
+
+  get checkoutButton() : ElementFinder{
+    return element(by.className('button'))
+  }
 }
