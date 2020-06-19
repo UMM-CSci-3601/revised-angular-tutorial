@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display the store title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('phone-store app is running!');
+    expect(page.titleText).toEqual('My Store');
   });
 
   afterEach(async () => {
