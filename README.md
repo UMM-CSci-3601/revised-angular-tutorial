@@ -31,6 +31,24 @@ We will also not provide a complete tutorial on E2E tests with protractor or uni
 
 ## Start making components
 
+The tutorial starts you off with two components:
+
+- `top-bar`, which has the app title and a checkout button
+- `product-list`, which lists the products available at the store
+
+and essentially no implemented "logic" except for the fact that the title links to the route `'/'`.
+
+A question is what we can/should test about these components. The `top-bar` component, for example, has several properties that could be tested:
+
+- It has a certain height.
+- It has a certain background color (a blue).
+- It contains an `h1` element with the string "My Store". This text is white against the blue background. This is a link; clicking it takes you to the `'/'` route, which at the moment is just the same page. (So it doesn't really seem to do anything at the moment, but will clearly serve a purpose when there is a second page and beyond.)
+- It contains a checkout button containing both a shopping cart icon and the string "Checkout". The button is white, and the text and icon are blue.
+
+Many of these are really _display_ properties (e.g., colors, sizes, layout) and probably shouldn't be captured in tests. We probably don't want an E2E test that checks that the shade of blue in the `top-bar` is "just so"; that would be really annoying if a design team came in and wanted to provided several possible color themes for consideration. It might also break the test if the user was using "dark mode" instead of "light mode", or the functionality was added later that let the user specify things like colors.
+
+Things like the title (currently "My Store") are more complex. The fact that "My Store" is clearly not a good title is a sign that we might want to have tests that capture that exact text. Early in a project the team may not have settled on a title yet, and embedding it in the tests might prematurely "lock in" a title that no one is actually terribly fond of. So instead of testing for a specific title string, at the beginning maybe it would be sufficient to confirm that there is an `app-top-bar` element, and that it contains an `h1` element, without worrying about the text in that element.
+
 ### Create the `top-bar` component
 
 We created an E2E spec that required (indirectly through the page objects) the existence of an `app-top-bar` component. ([ce1e3db](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/ce1e3db4d1b4dccd20624b82f90589bcfab92990)) We then satisfied that spec by generating the component ([35ff8b2](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/35ff8b2dead2b71bf08719429d6e07d4c341d096)):
@@ -43,7 +61,7 @@ and replacing the entire contents of `app.component.html` with the HTML from the
 <app-top-bar></app-top-bar>
 ```
 
-at the top. ([594c6d1](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/594c6d1cf3b99311e6e4827a2f4f6076079c094b)) 
+at the top. ([594c6d1](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/594c6d1cf3b99311e6e4827a2f4f6076079c094b))
 
 We then added an E2E spec that required that there be a checkout button, and got that to pass by pasting in the button code from the tutorial. ([9421cb8](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/1/commits/9421cb8520c834454ea8b64776a10bfb89cdb7b0))
 
