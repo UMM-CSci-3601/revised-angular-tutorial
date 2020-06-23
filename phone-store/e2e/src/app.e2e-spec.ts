@@ -49,7 +49,13 @@ describe('Phone store home page', () => {
       expect(page.productListHeader.isPresent()).toBeTruthy();
     });
 
+    it('should have three products', () => {
+      page.navigateTo();
+      let products = page.products;
+      expect(products.count()).toBe(3);
+    });
   });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

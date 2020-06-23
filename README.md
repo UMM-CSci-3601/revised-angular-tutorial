@@ -100,3 +100,8 @@ descriptions, and prices.
 
 We added a spec that required an `h2` header in the `app-product-list` element,
 and added code to `product-list-html` so that would pass.
+
+We specified that there should be three `h3` elements in the
+`app-product-list` element. We got that to pass by adding the `products`
+field to the `ProductListComponent` and with an `*ngFor` in the product
+list HTML.

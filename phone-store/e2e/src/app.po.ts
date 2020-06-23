@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protractor';
 
 export class AppPage {
   navigateTo(): Promise<unknown> {
@@ -24,3 +24,8 @@ export class AppPage {
   get productListHeader() : ElementFinder {
     return this.productList.element(by.css('h2'));
   }
+
+  get products() : ElementArrayFinder {
+    return this.productList.all(by.css('h3'));
+  }
+}
