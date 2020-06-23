@@ -1,11 +1,19 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 
 export class AppPage {
   navigateTo(): Promise<unknown> {
     return browser.get(browser.baseUrl) as Promise<unknown>;
   }
 
-  getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  get topBar() : ElementFinder {
+    return element(by.css('app-top-bar'));
+  }
+
+  get pageTitle() : ElementFinder {
+    return this.topBar.element(by.css('a h1'));
+  }
+
+  get checkoutButton() : ElementFinder{
+    return element(by.className('button'));
   }
 }
