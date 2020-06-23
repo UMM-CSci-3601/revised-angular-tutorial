@@ -81,6 +81,12 @@ This completes the top bar for now.
 
 ### Create a `product-list` component
 
+We added a spec that required an `app-product-list` element. This failed.
+
+We then generated the component:
+
+- `ng generate component product-list`
+
 As well as creating the component, we also need to route the default path to the `product-list` component. This requires adding this bit of code to `app.module.ts`:
 
 ```typescript
@@ -89,4 +95,3 @@ As well as creating the component, we also need to route the default path to the
     ])
 ```
 
-- `ng generate component product-list`
