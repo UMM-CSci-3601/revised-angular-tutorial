@@ -71,6 +71,12 @@ at the moment because _everything_ is on the home page; we should probably
 extend it when there are additional pages to make sure the link brings us
 back home from those pages.
 
+The tests all passed, but we realized that there was no styling, so
+we copied over the CSS from the tutorial and pasted it into our
+project. We also needed to link to the Material Icons font in
+`index.html` to bring in the shopping cart icon used in the checkout
+button.
+
 This completes the top bar for now.
 
 ### Create a `product-list` component
