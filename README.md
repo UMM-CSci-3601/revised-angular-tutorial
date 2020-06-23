@@ -105,3 +105,50 @@ We specified that there should be three `h3` elements in the
 `app-product-list` element. We got that to pass by adding the `products`
 field to the `ProductListComponent` and with an `*ngFor` in the product
 list HTML.
+
+### Checking in on the unit tests
+
+We'd been focused entirely on the E2E tests so far, and it occurred
+to us that we should check on the unit tests. Running
+
+```bash
+ng test --code-coverage --watch=false
+```
+
+ran the unit tests for us. We had 100% coverage at this point, largely
+because we have pretty much zero logic. :smile: One test did fail,
+however,
+because we no longer display the default text
+
+```markdown
+phone-store app is running!
+```
+
+We changed it to extract the title from the top bar and confirm that
+it says "My store" with:
+
+```typescript
+    expect(compiled.querySelector('app-top-bar h1').textContent)
+       .toContain('My Store');
+```
+
+This failed, though, because the test didn't know how to understand
+the `app-top-bar` HTML element from the top-bar component. Adding
+`TopBarComponent` to the `declarations` section in `app.component-spec.ts`
+fixed that problem. Now the tests pass and our coverage is still at
+100% (because there's no meaningful logic).
+
+:warning: There was still the following warning:
+
+```markdown
+WARN: 'Can't bind to 'routerLink' since it isn't a known property of 'a'.'
+```
+
+Nic spent _way_ too long flailing around on that (searching the
+Internet wasn't a ton of help) until he finally thought to set
+`--watch=true` and look at the browser console. That pointed out that
+the problem was in `top-bar.component.spec.ts`, which wasn't where he
+had been looking at all. Once he was looking in the right place, he
+realized that the problem was
+that we weren't importing `RouterTestingModule`; adding that fixed
+the problem right away.
