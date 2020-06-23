@@ -5,16 +5,12 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<unknown>;
   }
 
-  private get topBar() : ElementFinder {
+  get topBar() : ElementFinder {
     return element(by.css('app-top-bar'));
   }
 
   get pageTitle() : ElementFinder {
     return this.topBar.element(by.css('a h1'));
-  }
-
-  get titleText(): Promise<string> {
-    return this.pageTitle.getText() as Promise<string>;
   }
 
   get checkoutButton() : ElementFinder{

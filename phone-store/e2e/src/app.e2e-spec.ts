@@ -8,28 +8,35 @@ describe('Phone store home page', () => {
     page = new AppPage();
   });
 
-  describe('store title', () => {
-    it('should display the store title', () => {
+  describe('top bar', () => {
+    it('should exist', () => {
       page.navigateTo();
-      expect(page.titleText).toEqual('My Store');
+      expect(page.topBar.isPresent()).toBeTruthy();
     });
 
-    // This is kind of pointless by itself, but since it has been
-    // built to fail and then pass when fixed, we gain at least
-    // some confidence. It would be good to revise this test to
-    // start from another page in the app when we have one so
-    // we can see that it navigates back here to "home".
-    it('should link to "/"', () => {
+    it('should display the checkout button', () => {
       page.navigateTo();
-      page.pageTitle.click();
-      expect(browser.getCurrentUrl()).toEqual(browser.baseUrl);
+      expect(page.checkoutButton.isPresent()).toBeTruthy();
+    })
+
+    describe('title', () => {
+      it('should exist', () => {
+        page.navigateTo();
+        expect(page.pageTitle.isPresent()).toBeTruthy();
+      });
+
+      // This is kind of pointless by itself, but since it has been
+      // built to fail and then pass when fixed, we gain at least
+      // some confidence. It would be good to revise this test to
+      // start from another page in the app when we have one so
+      // we can see that it navigates back here to "home".
+      it('should link to "/"', () => {
+        page.navigateTo();
+        page.pageTitle.click();
+        expect(browser.getCurrentUrl()).toEqual(browser.baseUrl);
+      });
     });
   });
-
-  it('should display the checkout button', () => {
-    page.navigateTo();
-    expect(page.checkoutButton.isPresent()).toBeTruthy();
-  })
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
