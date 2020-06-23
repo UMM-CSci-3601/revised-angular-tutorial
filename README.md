@@ -95,3 +95,5 @@ As well as creating the component, we also need to route the default path to the
     ])
 ```
 
+We just copied in the `app/products.ts` file that has the list of phones,
+descriptions, and prices.
