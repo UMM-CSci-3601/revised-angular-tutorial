@@ -42,9 +42,14 @@ describe('Phone store home page', () => {
     it('should exist', () => {
       page.navigateTo();
       expect(page.productList.isPresent()).toBeTruthy();
-    })
-  });
+    });
 
+    it('should have a header', () => {
+      page.navigateTo();
+      expect(page.productListHeader.isPresent()).toBeTruthy();
+    });
+
+  });
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

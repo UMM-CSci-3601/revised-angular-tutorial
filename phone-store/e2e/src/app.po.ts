@@ -20,4 +20,7 @@ export class AppPage {
   get productList() : ElementFinder {
     return element(by.css('app-product-list'));
   }
-}
+
+  get productListHeader() : ElementFinder {
+    return this.productList.element(by.css('h2'));
+  }

@@ -97,3 +97,6 @@ As well as creating the component, we also need to route the default path to the
 
 We just copied in the `app/products.ts` file that has the list of phones,
 descriptions, and prices.
+
+We added a spec that required an `h2` header in the `app-product-list` element,
+and added code to `product-list-html` so that would pass.
