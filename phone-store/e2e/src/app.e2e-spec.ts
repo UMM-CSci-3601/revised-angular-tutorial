@@ -38,6 +38,13 @@ describe('Phone store home page', () => {
     });
   });
 
+  describe('product list', () => {
+    it('should exist', () => {
+      page.navigateTo();
+      expect(page.productList.isPresent()).toBeTruthy();
+    })
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

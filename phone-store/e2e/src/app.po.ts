@@ -13,7 +13,11 @@ export class AppPage {
     return this.topBar.element(by.css('a h1'));
   }
 
-  get checkoutButton() : ElementFinder{
+  get checkoutButton() : ElementFinder {
     return element(by.className('button'));
+  }
+
+  get productList() : ElementFinder {
+    return element(by.css('app-product-list'));
   }
 }
