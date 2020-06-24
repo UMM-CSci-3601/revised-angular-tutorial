@@ -1,27 +1,25 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, logging, by, ElementFinder } from 'protractor';
 
 describe('Phone store home page', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
+    page.navigateTo();
   });
 
   describe('top bar', () => {
     it('should exist', () => {
-      page.navigateTo();
       expect(page.topBar.isPresent()).toBeTruthy();
     });
 
     it('should display the checkout button', () => {
-      page.navigateTo();
       expect(page.checkoutButton.isPresent()).toBeTruthy();
     })
 
     describe('title', () => {
       it('should exist', () => {
-        page.navigateTo();
         expect(page.pageTitle.isPresent()).toBeTruthy();
       });
 
@@ -31,7 +29,6 @@ describe('Phone store home page', () => {
       // start from another page in the app when we have one so
       // we can see that it navigates back here to "home".
       it('should link to "/"', () => {
-        page.navigateTo();
         page.pageTitle.click();
         expect(browser.getCurrentUrl()).toEqual(browser.baseUrl);
       });
@@ -40,19 +37,23 @@ describe('Phone store home page', () => {
 
   describe('product list', () => {
     it('should exist', () => {
-      page.navigateTo();
       expect(page.productList.isPresent()).toBeTruthy();
     });
 
     it('should have a header', () => {
-      page.navigateTo();
       expect(page.productListHeader.isPresent()).toBeTruthy();
     });
 
     it('should have three products', () => {
-      page.navigateTo();
       let products = page.products;
       expect(products.count()).toBe(3);
+    });
+
+    it('should have links for each product name', () => {
+      let products = page.products;
+      products.each(function(product : ElementFinder) {
+        expect(product.element(by.css('a')).isPresent()).toBeTruthy();
+      });
     });
   });
 
