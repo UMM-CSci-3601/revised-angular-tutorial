@@ -1,5 +1,5 @@
-import { AppPage } from './app.po';
-import { browser, logging, by, ElementFinder } from 'protractor';
+import { AppPage, getLink } from './app.po';
+import { browser, logging, ElementFinder } from 'protractor';
 
 describe('Phone store home page', () => {
   let page: AppPage;
@@ -52,9 +52,28 @@ describe('Phone store home page', () => {
     it('should have links for each product name', () => {
       let products = page.products;
       products.each(function(product : ElementFinder) {
-        expect(product.element(by.css('a')).isPresent()).toBeTruthy();
+        // This version uses the `getLink` function in the PO file.
+        expect(getLink(product).isPresent).toBeTruthy();
+        // This version directly extracts the 'a' element.
+        // expect(product.element(by.css('a')).isPresent()).toBeTruthy();
       });
     });
+
+    /*
+     * The title of each link should be the name of the product followed
+     * by ' details', e.g., 'Pixel 3 details'. We'll not worry about the
+     * actual product names since we don't know what they might be, and
+     * just check that the title ends in ' details'. This also confirms
+     * that every product link actually _has_ a title.
+     */
+    it('should have correct title links for each product name', () => {
+      let products = page.products;
+      products.each(function(product : ElementFinder) {
+        let link = getLink(product);
+        let linkTitle = link.getAttribute('title');
+        expect(linkTitle).toMatch(".* details$");
+      });
+    })
   });
 
   afterEach(async () => {

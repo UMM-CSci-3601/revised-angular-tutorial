@@ -28,4 +28,12 @@ export class AppPage {
   get products() : ElementArrayFinder {
     return this.productList.all(by.css('h3'));
   }
+
+  get productLinks() : ElementArrayFinder {
+    return this.products.all(by.css('a'));
+  }
+}
+
+export function getLink(pageElement) : ElementFinder {
+  return pageElement.element(by.css('a'));
 }

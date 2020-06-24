@@ -125,11 +125,11 @@ phone-store app is running!
 ```
 
 We changed it to extract the title from the top bar and confirm that
-it says "My store" with:
+it contains "store" (with upper or lower case 's') with:
 
 ```typescript
     expect(compiled.querySelector('app-top-bar h1').textContent)
-       .toContain('My Store');
+        .toMatch(".*[sS]tore.*");
 ```
 
 This failed, though, because the test didn't know how to understand
@@ -152,3 +152,34 @@ had been looking at all. Once he was looking in the right place, he
 realized that the problem was
 that we weren't importing `RouterTestingModule`; adding that fixed
 the problem right away.
+
+### Fleshing out the product list
+
+So far all the product list is is a list of product names. The first
+section of the tutorial expands that to display various pieces of
+information (e.g., description) formatted in various ways.
+It also makes each product name a link, which will ultimately (in the
+second section of the tutorial) link to a separate, more detailed,
+page for that product.
+
+The first thing the tutorial does is make each product name a link.
+These links have no `href` so they don't _go_ anywhere yet. They _do_,
+however, all have titles that have the form
+
+```typescript
+"product.name + ' details'"
+```
+
+i.e., the name of the product followed by the word "details".
+
+We then added E2E tests that required that:
+
+- Each product name is a link
+- Each link has a `title` attribute that ends in `' details'`
+
+Those tests failed, and we then added the code from the tutorial
+that got them to pass.
+
+We also refactored all the `page.navigateTo()` calls up in the
+the `beforeEach` section so we weren't repeating them a zillion
+times.
