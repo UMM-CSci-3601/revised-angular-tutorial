@@ -28,5 +28,7 @@ exports.config = {
       project: require('path').join(__dirname, './tsconfig.json')
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
-  }
+  },
+  useBlockingProxy: true,
+  highlightDelay: 200 // How long it waits and highlights before interacting with an element
 };
