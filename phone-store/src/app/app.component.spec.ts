@@ -32,6 +32,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('app-top-bar h1').textContent).toContain('My Store');
+    /*
+     * This requires a store name in the top bar
+     * that includes the word "store" (with 's' either upper or
+     * lower case). That's arguably fragile to changes in the
+     * naming of the store, but it will do for now.
+     */
+    expect(compiled.querySelector('app-top-bar h1').textContent).toMatch(".*[sS]tore.*");
   });
 });
