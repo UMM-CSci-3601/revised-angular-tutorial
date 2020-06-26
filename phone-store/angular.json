@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "phone-store"
+    }
+  },
+  "defaultProject": "phone-store",
+  "cli": {
+    "analytics": false
+  }
 }
