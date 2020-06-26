@@ -9,9 +9,7 @@ describe('TopBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [ RouterTestingModule ],
       declarations: [ TopBarComponent ]
     })
     .compileComponents();
