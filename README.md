@@ -1,4 +1,4 @@
-![Tests](https://github.com/UMM-CSci-3601/revised-angular-tutorial/workflows/Tests/badge.svg)
+[![Tests](https://github.com/UMM-CSci-3601/revised-angular-tutorial/workflows/Tests/badge.svg)](https://github.com/UMM-CSci-3601/revised-angular-tutorial/actions?query=workflow%3ATests)
 
 # A BDD version of the "Phone Store" Angular tutorial
 
