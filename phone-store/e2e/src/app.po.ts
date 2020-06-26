@@ -26,7 +26,7 @@ export class AppPage {
   }
 
   get products() : ElementArrayFinder {
-    return this.productList.all(by.css('h3'));
+    return this.productList.all(by.className('product-entry'));
   }
 
   get productLinks() : ElementArrayFinder {
