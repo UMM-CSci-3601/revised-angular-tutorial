@@ -29,6 +29,23 @@ We will also not provide a complete tutorial on E2E tests with protractor or uni
   - :question: This creates a directory called `phone-store` in the project. Do we want to change the name to `client` to be more like our later structures?
   - At this point you can go into the `phone-store` directory and run `ng server` and see our little project! :smile: It of course doesn't actually _do_ anything interesting yet, but it does work.
 
+### Setup GitHub Actions
+
+@floogulinc set up the GitHub Actions based on work done in S20.
+These are all laid out in [this pull request](https://github.com/UMM-CSci-3601/revised-angular-tutorial/pull/3).
+
+For reasons we don't fully understand, this requires installing
+some `webdriver-manager` binaries that didn't get installed on
+their own. Without them, we can't run the `e2e` tests.
+
+Running:
+
+```bash
+node_modules/protractor/bin/webdriver-manager update
+```
+
+installed the necessary binaries and all the tests ran and passed.
+
 ## Start making components
 
 The tutorial starts you off with two components:
