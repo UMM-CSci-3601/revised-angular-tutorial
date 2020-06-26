@@ -34,6 +34,9 @@ export class AppPage {
   }
 }
 
-export function getLink(pageElement) : ElementFinder {
+export function getLink(pageElement : ElementFinder | undefined) : ElementFinder {
+  if (pageElement === undefined) {
+    throw new TypeError("page element should not be undefined");
+  }
   return pageElement.element(by.css('a'));
 }

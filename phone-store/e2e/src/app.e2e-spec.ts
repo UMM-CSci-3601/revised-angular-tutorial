@@ -51,11 +51,8 @@ describe('Phone store home page', () => {
 
     it('should have links for each product name', () => {
       let products = page.products;
-      products.each(function(product : ElementFinder) {
-        // This version uses the `getLink` function in the PO file.
+      products.each(function(product) {
         expect(getLink(product).isPresent).toBeTruthy();
-        // This version directly extracts the 'a' element.
-        // expect(product.element(by.css('a')).isPresent()).toBeTruthy();
       });
     });
 
@@ -68,7 +65,7 @@ describe('Phone store home page', () => {
      */
     it('should have correct title links for each product name', () => {
       let products = page.products;
-      products.each(function(product : ElementFinder) {
+      products.each(function(product) {
         let link = getLink(product);
         let linkTitle = link.getAttribute('title');
         expect(linkTitle).toMatch(".* details$");
