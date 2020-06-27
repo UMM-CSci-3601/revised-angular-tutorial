@@ -1,12 +1,13 @@
 /// <reference types="cypress" />
 
-import { toInteger } from "cypress/types/lodash"
+import { PhoneStoreHomePage } from "../page-objects/phone-store-home-page.po"
 
 describe('Phone store home page', () => {
+  const page = new PhoneStoreHomePage
 
   beforeEach(() => {
     cy.viewport(400, 600)
-    cy.visit('http://localhost:4200/')
+    page.navigate()
   })
 
   it('should have a project title of "PhoneStore"', () => {
@@ -16,26 +17,26 @@ describe('Phone store home page', () => {
 
   describe('top bar', () => {
     it('should exist', () => {
-      cy.get<HTMLElement>('app-top-bar').should('exist')
+      page.topBar().should('exist')
     })
 
     it('should display the checkout button', () => {
-      cy.get<HTMLElement>('.button')
+      page.checkoutButton()
         .should('exist')
         .and('be.visible')
     })
 
     describe('title', () => {
       it('should exist', () => {
-        cy.get<HTMLElement>('a h1').should('exist')
+        page.topBarTitle().should('exist')
       })
 
       it('should display the name of my store, which needs to include "store"', () => {
-        cy.get<HTMLElement>('a h1').contains('store', { matchCase: false})
+        page.topBarTitle().contains('store', { matchCase: false})
       })
 
       it('should link to "/"', () => {
-        cy.get<HTMLElement>('a h1').click()
+        page.topBar().click()
         cy.url().should('eq', 'http://localhost:4200/')
       })
     })
@@ -43,28 +44,34 @@ describe('Phone store home page', () => {
 
   describe('product list', () => {
     it('should exist', () => {
-      cy.get<HTMLElement>('app-product-list').should('exist')
+      page.productList().should('exist')
     })
 
     it('should have a header', () => {
-      cy.get<HTMLElement>('app-product-list h2').should('exist')
+      page.productListHeader().should('exist')
     })
 
     it('should have three products', () => {
-      cy.get<HTMLElement>('.product-entry').should('have.length', 3)
+      page.productListEntries().should('have.length', 3)
     })
 
     it('should have each product be a link', () => {
-      cy.get<HTMLElement>('.product-entry a').should('exist')
+      page.productListEntries().should('have', 'a')
     })
 
     it('should have "details" as part of the title of each link', () => {
-      cy.get<HTMLElement>('.product-entry a')
+      page.productListEntries()
         .should(($productEntries) => {
           for (var _i=0; _i<$productEntries.length; _i++) {
-            //console.log($productEntries.get(_i).getAttribute('title'))
             expect($productEntries.get(_i).getAttribute('title')).to.contain('details')
           }
+        })
+    })
+
+    it('should have "details" as part of the title of each link another way', () => {
+      page.productListEntries().attribute('title')
+        .each(($entry) => {
+          expect($entry).to.contain('details')
         })
     })
   })
