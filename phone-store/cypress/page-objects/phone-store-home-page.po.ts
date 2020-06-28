@@ -14,7 +14,7 @@ export class PhoneStoreHomePage {
   }
 
   checkoutButton() {
-    return cy.get<HTMLElement>('app-top-bar .button')
+    return cy.get<HTMLButtonElement>('app-top-bar .button')
   }
 
   productList() {
@@ -30,6 +30,6 @@ export class PhoneStoreHomePage {
   }
 
   productListEntryLinks() {
-    return cy.get<HTMLElement>('.product-entry a')
+    return cy.get<HTMLLinkElement>('.product-entry a')
   }
 }
