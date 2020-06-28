@@ -60,7 +60,7 @@ describe('Phone store home page', () => {
     })
 
     it('should have "details" as part of the title of each link', () => {
-      page.productListEntries()
+      page.productListEntryLinks()
         .should(($productEntries) => {
           for (var _i=0; _i<$productEntries.length; _i++) {
             expect($productEntries.get(_i).getAttribute('title')).to.contain('details')
@@ -69,10 +69,19 @@ describe('Phone store home page', () => {
     })
 
     it('should have "details" as part of the title of each link another way', () => {
-      page.productListEntries().attribute('title')
+      page.productListEntryLinks().attribute('title')
         .each(($entry) => {
           expect($entry).to.contain('details')
         })
     })
+
+    it('should have "details" as part of the title of each link yet another way', () => {
+      page.productListEntries().each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.get('a').attribute('title').should('contain', 'details')
+        })
+      })
+    })
+
   })
 })

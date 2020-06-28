@@ -26,6 +26,10 @@ export class PhoneStoreHomePage {
   }
 
   productListEntries() {
+    return cy.get<HTMLElement>('.product-entry')
+  }
+
+  productListEntryLinks() {
     return cy.get<HTMLElement>('.product-entry a')
   }
 }
