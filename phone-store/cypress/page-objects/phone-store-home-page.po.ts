@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 
 export class PhoneStoreHomePage {
+  home = Cypress.config().baseUrl
+
   navigate() {
-    return cy.visit('http://localhost:4200/')
+    return cy.visit('')
   }
 
   topBar() {

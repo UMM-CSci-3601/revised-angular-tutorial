@@ -37,7 +37,7 @@ describe('Phone store home page', () => {
 
       it('should link to "/"', () => {
         page.topBar().click()
-        cy.url().should('eq', 'http://localhost:4200/')
+        cy.url().should('eq', page.home)
       })
     })
   })
