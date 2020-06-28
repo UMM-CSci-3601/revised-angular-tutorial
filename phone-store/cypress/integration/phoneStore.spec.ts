@@ -78,27 +78,27 @@ describe('Phone store home page', () => {
     it('should have "details" as part of the title of each link another way again', () => {
       page.productListEntryLinks().attribute('title')
         .each(($entry) => {
-          cy.wrap($entry).should('contain', 'details')
+          cy.wrap($entry).should('match', /.* details$/)
         })
     })
 
     it('should have "details" as part of the title of each link yet another way', () => {
       page.productListEntries().each(($el) => {
         cy.wrap($el).within(() => {
-          cy.get('a').attribute('title').should('contain', 'details')
+          cy.get('a').attribute('title').should('match', /.* details$/)
         })
       })
     })
 
     it('should have "details" as part of the title of each link yet another way again', () => {
-      page.productListEntries().each(($el) => {
-        cy.wrap($el).find('a').attribute('title').should('contain', 'details')
+      page.productListEntries().each((el) => {
+        cy.wrap(el).find('a').attribute('title').should('match', /.* details$/)
       })
     })
 
     it('should have "details" as part of the title of each link yet another way AGAIN', () => {
-      page.productListEntryLinks().each(($el) => {
-        cy.wrap($el).attribute('title').should('contain', 'details')
+      page.productListEntryLinks().each((el) => {
+        cy.wrap(el).attribute('title').should('match', /.* details$/)
       })
     })
 
