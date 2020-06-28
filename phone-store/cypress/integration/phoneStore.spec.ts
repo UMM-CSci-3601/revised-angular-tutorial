@@ -58,6 +58,7 @@ describe('Phone store home page', () => {
     it('should have each product be a link', () => {
       page.productListEntries().each(entry => {
         cy.wrap(entry).should('have', 'a')
+      })
     })
 
     it('should have "details" as part of the title of each link', () => {
