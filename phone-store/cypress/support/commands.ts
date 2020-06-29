@@ -9,12 +9,25 @@
 // ***********************************************
 //
 //
+declare namespace Cypress {
+  interface Chainable {
+    shouldEachHave(thing: string): Chainable<Element>
+  }
+}
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
 //
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
+Cypress.Commands.add('shouldEachHave', {
+  prevSubject: 'element'
+}, (subject, $thing) => {
+  cy.wrap(subject).each((el) => {
+    expect(el).to.have.descendants($thing)
+  })
+})
+
 //
 //
 // -- This is a dual command --

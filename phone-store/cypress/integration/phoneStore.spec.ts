@@ -61,7 +61,17 @@ describe('Phone store home page', () => {
       })
     })
 
-    it('should have "details" as part of the title of each link', () => {
+    it('should have each product be a link (chai)', () => {
+      page.productListEntries().each(entry => {
+        expect(entry).to.have.descendants('a')
+      })
+    })
+
+    it('should have each product be a link (custom)', () =>{
+      page.productListEntries().shouldEachHave('a')
+    })
+
+    it('should have "details" as part of the title of each link (ugly) given links', () => {
       page.productListEntryLinks()
         .should(($productEntries) => {
           for (var _i=0; _i<$productEntries.length; _i++) {
