@@ -4,7 +4,7 @@ export class PhoneStoreHomePage {
   home = Cypress.config().baseUrl
 
   navigate() {
-    return cy.visit('')
+    return cy.visit('/')
   }
 
   topBar() {
