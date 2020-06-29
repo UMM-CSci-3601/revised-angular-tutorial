@@ -80,21 +80,28 @@ describe('Phone store home page', () => {
         })
     })
 
-    it('should have "details" as part of the title of each link another way', () => {
+    it('should have "details" as part of the title of each link (each, chai) given links', () => {
       page.productListEntryLinks().attribute('title')
         .each(($entry) => {
-          expect($entry).to.contain('details')
+          expect($entry).to.match(/.* details$/)
         })
     })
-
-    it('should have "details" as part of the title of each link another way again', () => {
+/*
+    it.only('should have "details" as part of the title of each link (each, chai) given entries', () => {
+      page.productListEntries()
+        .each(($entry) => {
+          expect($entry.getAttribute('title')).to.match(/.* details$/)
+        })
+    })
+*/
+    it('should have "details" as part of the title of each link (each, cypress-wrapped) given links', () => {
       page.productListEntryLinks().attribute('title')
         .each(($entry) => {
           cy.wrap($entry).should('match', /.* details$/)
         })
     })
 
-    it('should have "details" as part of the title of each link yet another way', () => {
+    it('should have "details" as part of the title of each link (each, cypress-wrapped, within) given entries', () => {
       page.productListEntries().each(($el) => {
         cy.wrap($el).within(() => {
           cy.get('a').attribute('title').should('match', /.* details$/)
@@ -102,13 +109,13 @@ describe('Phone store home page', () => {
       })
     })
 
-    it('should have "details" as part of the title of each link yet another way again', () => {
+    it('should have "details" as part of the title of each link (each, cypress-wrapped, find) given entries', () => {
       page.productListEntries().each((el) => {
         cy.wrap(el).find('a').attribute('title').should('match', /.* details$/)
       })
     })
 
-    it('should have "details" as part of the title of each link yet another way AGAIN', () => {
+    it('should have "details" as part of the title of each link (each, cypress-wrapped) given links', () => {
       page.productListEntryLinks().each((el) => {
         cy.wrap(el).attribute('title').should('match', /.* details$/)
       })
