@@ -86,14 +86,14 @@ describe('Phone store home page', () => {
           expect($entry).to.match(/.* details$/)
         })
     })
-/*
-    it.only('should have "details" as part of the title of each link (each, chai) given entries', () => {
+
+    it('should have "details" as part of the title of each link (each, chai) given entries', () => {
       page.productListEntries()
         .each(($entry) => {
-          expect($entry.getAttribute('title')).to.match(/.* details$/)
+          expect($entry.find('a').attr('title')).to.match(/.* details$/);
         })
     })
-*/
+
     it('should have "details" as part of the title of each link (each, cypress-wrapped) given links', () => {
       page.productListEntryLinks().attribute('title')
         .each(($entry) => {
