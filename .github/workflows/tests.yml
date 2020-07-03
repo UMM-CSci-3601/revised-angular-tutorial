@@ -29,7 +29,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run e2e tests (Cypress)
-      uses: cypress-io/github-actions@v2
+      uses: cypress-io/github-action@v2
       with:
         command: npx ng e2e
         working-directory: ./phone-store
