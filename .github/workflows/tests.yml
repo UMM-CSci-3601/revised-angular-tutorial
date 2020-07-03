@@ -28,19 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Install dependencies (npm ci)
-      run: npm ci
-      working-directory: ./phone-store
     - name: Run e2e tests (Cypress)
-      uses: cypress-io/github-action@v1.16.1
+      uses: cypress-io/github-actions@v2
+      with:
+        command: npx ng e2e
+        working-directory: ./phone-store
