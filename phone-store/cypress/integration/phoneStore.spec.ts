@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { PhoneStoreHomePage } from "../page-objects/phone-store-home-page.po"
+import { PhoneStoreHomePage } from "../support/phone-store-home-page.po"
 
 describe('Phone store home page', () => {
   const page = new PhoneStoreHomePage
