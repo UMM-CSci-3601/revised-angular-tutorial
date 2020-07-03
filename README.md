@@ -100,6 +100,12 @@ This completes the top bar for now.
 
 ### Create a `product-list` component
 
+We added a spec that required an `app-product-list` element. This failed.
+
+We then generated the component:
+
+- `ng generate component product-list`
+
 As well as creating the component, we also need to route the default path to the `product-list` component. This requires adding this bit of code to `app.module.ts`:
 
 ```typescript
@@ -108,4 +114,91 @@ As well as creating the component, we also need to route the default path to the
     ])
 ```
 
-- `ng generate component product-list`
+We just copied in the `app/products.ts` file that has the list of phones,
+descriptions, and prices.
+
+We added a spec that required an `h2` header in the `app-product-list` element,
+and added code to `product-list-html` so that would pass.
+
+We specified that there should be three `h3` elements in the
+`app-product-list` element. We got that to pass by adding the `products`
+field to the `ProductListComponent` and with an `*ngFor` in the product
+list HTML.
+
+### Checking in on the unit tests
+
+We'd been focused entirely on the E2E tests so far, and it occurred
+to us that we should check on the unit tests. Running
+
+```bash
+ng test --code-coverage --watch=false
+```
+
+ran the unit tests for us. We had 100% coverage at this point, largely
+because we have pretty much zero logic. :smile: One test did fail,
+however,
+because we no longer display the default text
+
+```markdown
+phone-store app is running!
+```
+
+We changed it to extract the title from the top bar and confirm that
+it contains "store" (with upper or lower case 's') with:
+
+```typescript
+    expect(compiled.querySelector('app-top-bar h1').textContent)
+        .toMatch(".*[sS]tore.*");
+```
+
+This failed, though, because the test didn't know how to understand
+the `app-top-bar` HTML element from the top-bar component. Adding
+`TopBarComponent` to the `declarations` section in `app.component-spec.ts`
+fixed that problem. Now the tests pass and our coverage is still at
+100% (because there's no meaningful logic).
+
+:warning: There was still the following warning:
+
+```markdown
+WARN: 'Can't bind to 'routerLink' since it isn't a known property of 'a'.'
+```
+
+Nic spent _way_ too long flailing around on that (searching the
+Internet wasn't a ton of help) until he finally thought to set
+`--watch=true` and look at the browser console. That pointed out that
+the problem was in `top-bar.component.spec.ts`, which wasn't where he
+had been looking at all. Once he was looking in the right place, he
+realized that the problem was
+that we weren't importing `RouterTestingModule`; adding that fixed
+the problem right away.
+
+### Fleshing out the product list
+
+So far all the product list is is a list of product names. The first
+section of the tutorial expands that to display various pieces of
+information (e.g., description) formatted in various ways.
+It also makes each product name a link, which will ultimately (in the
+second section of the tutorial) link to a separate, more detailed,
+page for that product.
+
+The first thing the tutorial does is make each product name a link.
+These links have no `href` so they don't _go_ anywhere yet. They _do_,
+however, all have titles that have the form
+
+```typescript
+"product.name + ' details'"
+```
+
+i.e., the name of the product followed by the word "details".
+
+We then added E2E tests that required that:
+
+- Each product name is a link
+- Each link has a `title` attribute that ends in `' details'`
+
+Those tests failed, and we then added the code from the tutorial
+that got them to pass.
+
+We also refactored all the `page.navigateTo()` calls up in the
+the `beforeEach` section so we weren't repeating them a zillion
+times.

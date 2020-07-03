@@ -106,7 +106,7 @@
             "tsConfig": [
               "tsconfig.app.json",
               "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "cypress/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -114,11 +114,11 @@
           }
         },
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "phone-store:serve",
-            "webdriverUpdate": false
+            "cypressConfig": "cypress.json",
+            "tsConfig": "cypress/tsconfig.json",
+            "devServerTarget": "phone-store:serve"
           },
           "configurations": {
             "production": {
@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "phone-store"
+    }
+  },
+  "defaultProject": "phone-store",
+  "cli": {
+    "analytics": false
+  }
 }

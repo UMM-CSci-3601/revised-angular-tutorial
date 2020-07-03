@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protractor';
 
 export class AppPage {
   navigateTo(): Promise<unknown> {
@@ -13,7 +13,30 @@ export class AppPage {
     return this.topBar.element(by.css('a h1'));
   }
 
-  get checkoutButton() : ElementFinder{
+  get checkoutButton() : ElementFinder {
     return element(by.className('button'));
   }
+
+  get productList() : ElementFinder {
+    return element(by.css('app-product-list'));
+  }
+
+  get productListHeader() : ElementFinder {
+    return this.productList.element(by.css('h2'));
+  }
+
+  get products() : ElementArrayFinder {
+    return this.productList.all(by.className('product-entry'));
+  }
+
+  get productLinks() : ElementArrayFinder {
+    return this.products.all(by.css('a'));
+  }
+}
+
+export function getLink(pageElement : ElementFinder | undefined) : ElementFinder {
+  if (pageElement === undefined) {
+    throw new TypeError("page element should not be undefined");
+  }
+  return pageElement.element(by.css('a'));
 }

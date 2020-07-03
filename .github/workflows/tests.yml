@@ -21,27 +21,15 @@ jobs:
     - name: Install dependencies (npm ci)
       run: npm ci
       working-directory: ./phone-store
-    - name: Run unit tests (npm run test)
+    - name: Run unit tests (Karma)
       run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       working-directory: ./phone-store
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Cache node modules
-      uses: actions/cache@v1
+    - name: Run e2e tests (Cypress)
+      uses: cypress-io/github-action@v2
       with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Install dependencies (npm ci)
-      run: npm ci
-      working-directory: ./phone-store
-    - name: Run e2e tests
-      run: npm run e2eci
-      working-directory: ./phone-store
+        command: npx ng e2e
+        working-directory: ./phone-store
