@@ -43,5 +43,5 @@ jobs:
       run: npm ci
       working-directory: ./phone-store
     - name: Run e2e tests
-      run: ng e2e --headless
+      run: npx ng e2e
       working-directory: ./phone-store
