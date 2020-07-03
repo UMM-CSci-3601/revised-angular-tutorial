@@ -43,5 +43,4 @@ jobs:
       run: npm ci
       working-directory: ./phone-store
     - name: Run e2e tests
-      run: npx ng e2e
-      working-directory: ./phone-store
+      uses: cypress-io/github-action@v2
