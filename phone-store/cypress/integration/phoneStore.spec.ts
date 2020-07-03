@@ -79,7 +79,9 @@ describe('Phone store home page', () => {
        *   - that contain titles
        * Since there are only three product entries this implicitly
        * asserts that _all_ product entries have `a` tags that
-       * contain titles.
+       * contain titles. This uses `>` to indicate that one thing is a
+       * direct child of another, e.g., `h3 > a` only matches an `a` tag
+       * that is directly inside an `h3` tag.
        */
       cy.get('.product-entry > h3 > a[title]').should('have.length', 3);
       /*
@@ -107,9 +109,12 @@ describe('Phone store home page', () => {
      * product entry fails to have the desired structure, which is nice. The
      * previous test does not do that, which is why we have the `length` test
      * there to make sure they all have the desired structure.
+     *
+     * This uses `>` to indicate that one thing is a direct child of another, e.g.,
+     * `h3 > a` only matches an `a` tag that is directly inside an `h3` tag.
      */
-    it('should have "details" as part of the title of each link (no page objects, each product-entry)', () => {
-      cy.get('.product-entry').each((productEntry) => {
+    it('should have "details" as part of the title of each link (direct descendants, each product-entry)', () => {
+      page.productListEntries().each((productEntry) => {
         expect(productEntry.find('h3 > a[title]').attr('title')).to.match(/.* details/);
       });
     });
