@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies (npm ci)
       run: npm ci
       working-directory: ./phone-store
-    - name: Run unit tests (npm run test)
+    - name: Run unit tests (Karma)
       run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       working-directory: ./phone-store
   e2e-tests:
@@ -42,5 +42,5 @@ jobs:
     - name: Install dependencies (npm ci)
       run: npm ci
       working-directory: ./phone-store
-    - name: Run e2e tests
-      uses: cypress-io/github-action@v2
+    - name: Run e2e tests (Cypress)
+      uses: cypress-io/github-action@v1.16.1
