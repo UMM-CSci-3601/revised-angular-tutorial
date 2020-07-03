@@ -55,117 +55,123 @@ describe('Phone store home page', () => {
       page.productListEntries().should('have.length', 3);
     });
 
-    it('should have each product be a link', () => {
-      page.productListEntries().each(entry => {
-        cy.wrap(entry).should('have', 'a');
-      });
-    });
-
-    it('should have each product be a link (chai)', () => {
-      page.productListEntries().each(entry => {
-        expect(entry).to.have.descendants('a');
-      });
-    });
-
-    it('should have each product be a link (custom)', () => {
-      page.productListEntries().shouldEachHave('a');
-    });
-
-    it('should have "details" as part of the title of each link (no page objects)', () => {
-      /*
-       * This asserts that there are three:
-       *   - product entries
-       *   - that have an `a` tag
-       *   - that contain titles
-       * Since there are only three product entries this implicitly
-       * asserts that _all_ product entries have `a` tags that
-       * contain titles. This uses `>` to indicate that one thing is a
-       * direct child of another, e.g., `h3 > a` only matches an `a` tag
-       * that is directly inside an `h3` tag.
-       */
-      cy.get('.product-entry > h3 > a[title]').should('have.length', 3);
-      /*
-       * This asserts that every
-       *  - title
-       *  - inside an `a` tag
-       *  - inside a product entry
-       * ends with the string " details". Note that this does
-       * _not_ require that, e.g., product entries _have_ these
-       * elements, just that if they do they need to match this
-       * pattern.
-       *
-       */
-      cy.get('.product-entry > h3 > a[title]').attribute('title').each((title) => {
-        expect(title).to.match(/.* details/);
-      });
-    });
-
-    /*
-     * This checks that each product entry in fact has a link with a title, and that
-     * title should end in "details".
-     *
-     * The `find` command will also return `undefined` if there's not a link with
-     * a title in the `productEntry`. This means this test will fail if any individual
-     * product entry fails to have the desired structure, which is nice. The
-     * previous test does not do that, which is why we have the `length` test
-     * there to make sure they all have the desired structure.
-     *
-     * This uses `>` to indicate that one thing is a direct child of another, e.g.,
-     * `h3 > a` only matches an `a` tag that is directly inside an `h3` tag.
-     */
-    it('should have "details" as part of the title of each link (direct descendants, each product-entry)', () => {
-      page.productListEntries().each((productEntry) => {
-        expect(productEntry.find('h3 > a[title]').attr('title')).to.match(/.* details/);
-      });
-    });
-
-    it('should have "details" as part of the title of each link (ugly) given links', () => {
-      page.productListEntryLinks()
-        .should(($productEntries) => {
-          for (var _i = 0; _i < $productEntries.length; _i++) {
-            expect($productEntries.get(_i).getAttribute('title')).to.contain('details');
-          }
+    describe('each product', () => {
+      describe('should be a link (we show several ways)', () => {
+        it('(each, cypress wrap)', () => {
+          page.productListEntries().each(entry => {
+            cy.wrap(entry).should('have', 'a');
+          });
         });
-    });
 
-    it('should have "details" as part of the title of each link (each, chai) given links', () => {
-      page.productListEntryLinks().attribute('title')
-        .each(($entry) => {
-          expect($entry).to.match(/.* details$/);
+        it('(each, chai)', () => {
+          page.productListEntries().each(entry => {
+            expect(entry).to.have.descendants('a');
+          });
         });
-    });
 
-    it('should have "details" as part of the title of each link (each, chai) given entries', () => {
-      page.productListEntries()
-        .each(($entry) => {
-          expect($entry.find('a').attr('title')).to.match(/.* details$/);
-        });
-    });
-
-    it('should have "details" as part of the title of each link (each, cypress-wrapped) given links', () => {
-      page.productListEntryLinks().attribute('title')
-        .each(($entry) => {
-          cy.wrap($entry).should('match', /.* details$/);
-        });
-    });
-
-    it('should have "details" as part of the title of each link (each, cypress-wrapped, within) given entries', () => {
-      page.productListEntries().each(($el) => {
-        cy.wrap($el).within(() => {
-          cy.get('a').attribute('title').should('match', /.* details$/);
+        it('(custom)', () => {
+          page.productListEntries().shouldEachHave('a');
         });
       });
-    });
 
-    it('should have "details" as part of the title of each link (each, cypress-wrapped, find) given entries', () => {
-      page.productListEntries().each((el) => {
-        cy.wrap(el).find('a').attribute('title').should('match', /.* details$/);
-      });
-    });
+      describe('should have "details" at the end of the title attribute of each link (we show several ways)', () => {
+        it('(no page objects)', () => {
+          /*
+          * This asserts that there are three:
+          *   - product entries
+          *   - that have an `a` tag
+          *   - that contain titles
+          * Since there are only three product entries this implicitly
+          * asserts that _all_ product entries have `a` tags that
+          * contain titles. This uses `>` to indicate that one thing is a
+          * direct child of another, e.g., `h3 > a` only matches an `a` tag
+          * that is directly inside an `h3` tag.
+          */
+          cy.get('.product-entry > h3 > a[title]').should('have.length', 3);
+          /*
+          * This asserts that every
+          *  - title
+          *  - inside an `a` tag
+          *  - inside a product entry
+          * ends with the string " details". Note that this does
+          * _not_ require that, e.g., product entries _have_ these
+          * elements, just that if they do they need to match this
+          * pattern.
+          *
+          */
+          cy.get('.product-entry > h3 > a[title]').attribute('title').each((title) => {
+            expect(title).to.match(/.* details/);
+          });
+        });
 
-    it('should have "details" as part of the title of each link (each, cypress-wrapped) given links', () => {
-      page.productListEntryLinks().each((el) => {
-        cy.wrap(el).attribute('title').should('match', /.* details$/);
+        /*
+        * This checks that each product entry in fact has a link with a title, and that
+        * title should end in "details".
+        *
+        * The `find` command will also return `undefined` if there's not a link with
+        * a title in the `productEntry`. This means this test will fail if any individual
+        * product entry fails to have the desired structure, which is nice. The
+        * previous test does not do that, which is why we have the `length` test
+        * there to make sure they all have the desired structure.
+        *
+        * This uses `>` to indicate that one thing is a direct child of another, e.g.,
+        * `h3 > a` only matches an `a` tag that is directly inside an `h3` tag.
+        */
+        it('(direct descendants, each product-entry)', () => {
+          page.productListEntries().each((productEntry) => {
+            expect(productEntry.find('h3 > a[title]').attr('title')).to.match(/.* details/);
+          });
+        });
+
+        it('(explicit for loop in javascript) given links', () => {
+          page.productListEntryLinks()
+            .should(($productEntries) => {
+              for (var i = 0; i < $productEntries.length; i++) {
+                expect($productEntries.get(i).getAttribute('title')).to.contain('details');
+              }
+            });
+        });
+
+        it('(each, chai) given links', () => {
+          page.productListEntryLinks().attribute('title')
+            .each(($entry) => {
+              expect($entry).to.match(/.* details$/);
+            });
+        });
+
+        it('(each, chai) given entries', () => {
+          page.productListEntries()
+            .each(($entry) => {
+              expect($entry.find('a').attr('title')).to.match(/.* details$/);
+            });
+        });
+
+        it('(each, cypress-wrapped) given links', () => {
+          page.productListEntryLinks().attribute('title')
+            .each(($entry) => {
+              cy.wrap($entry).should('match', /.* details$/);
+            });
+        });
+
+        it('(each, cypress-wrapped, within) given entries', () => {
+          page.productListEntries().each(($el) => {
+            cy.wrap($el).within(() => {
+              cy.get('a').attribute('title').should('match', /.* details$/);
+            });
+          });
+        });
+
+        it('(each, cypress-wrapped, find) given entries', () => {
+          page.productListEntries().each((el) => {
+            cy.wrap(el).find('a').attribute('title').should('match', /.* details$/);
+          });
+        });
+
+        it('(each, cypress-wrapped) given links', () => {
+          page.productListEntryLinks().each((el) => {
+            cy.wrap(el).attribute('title').should('match', /.* details$/);
+          });
+        });
       });
     });
   });
