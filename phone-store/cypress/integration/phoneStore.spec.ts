@@ -187,7 +187,7 @@ describe('Phone store home page', () => {
         });
       });
 
-      describe.only('the product\'s share button', () => {
+      describe('the product\'s share button', () => {
         it('should exist', () => {
           page.productListEntries().each((entry) => {
             cy.wrap(entry).find('button')
@@ -198,6 +198,33 @@ describe('Phone store home page', () => {
           page.productListEntries().each((entry) => {
             cy.wrap(entry).find('button').text()
               .should('match', /\s*Share\s*/);
+          });
+        });
+        /*
+         * Clicking the "Share" button should create an alert
+         * displaying the text "The product has been shared!".
+         * Borrows from https://stackoverflow.com/questions/51795306/how-can-we-test-the-alert-and-text-inside-is-displaying-using-cypress-io-js-auto
+         */
+        describe('the share button alert', () => {
+          it('should appear when clicked', () => {
+            // This creates a stub object that can receive method calls,
+            // and remember what calls it received and with what arguments.
+            // See https://docs.cypress.io/guides/guides/stubs-spies-and-clocks.html
+            // for additional information.
+            const stub = cy.stub();
+            // Cypress is going to intervene and instead of having
+            // the browser handle the `.alert()` call, this passes
+            // that call to the stub created the line before. The stub
+            // then remembers that call and its argument (which is the
+            // string we passed to `.alert()`).
+            cy.on('window:alert', stub);
+            // This finds all the buttons that contain the string "Share".
+            page.productListEntries().find('button:contains("Share")').each((btn) => {
+              cy.wrap(btn).click()
+                .then(() => {
+                  expect(stub.getCall(0)).to.be.calledWith('The product has been shared!');
+                });
+            });
           });
         });
       });
