@@ -173,6 +173,19 @@ describe('Phone store home page', () => {
           });
         });
       });
+
+      /*
+       * Each product should be conditionally followed by a paragraph
+       * starting with "Description: " and followed by some descriptive
+       * text about the phone. This is *only* displayed if the phone
+       * has a non-empty description field, so not all items will have
+       * this field.
+       */
+      it('should display the description details if they exist', () => {
+        page.productListEntries().find('p').text().each((descriptionText) => {
+          expect(descriptionText).to.match(/Description: .+/);
+        });
+      });
     });
   });
 });
