@@ -186,6 +186,21 @@ describe('Phone store home page', () => {
           expect(descriptionText).to.match(/Description: .+/);
         });
       });
+
+      describe.only('the product\'s share button', () => {
+        it('should exist', () => {
+          page.productListEntries().each((entry) => {
+            cy.wrap(entry).find('button')
+              .should('exist');
+          });
+        });
+        it('should be labelled "Share"', () => {
+          page.productListEntries().each((entry) => {
+            cy.wrap(entry).find('button').text()
+              .should('match', /\s*Share\s*/);
+          });
+        });
+      });
     });
   });
 });
