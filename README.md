@@ -76,7 +76,7 @@ We created an E2E spec that required (indirectly through the page objects) the e
 
 and replacing the entire contents of `app.component.html` with the HTML from the tutorial, which includes adding:
 
-```typescript
+```html
 <app-top-bar></app-top-bar>
 ```
 
